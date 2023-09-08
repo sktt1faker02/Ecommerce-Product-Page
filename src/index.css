@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+.padding-section {
+  padding: 1.5rem;
+}
+
+img.activeSlide {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+img.nextSlide {
+  transform: translateX(-100%);
+}
+
+img.lastSlide {
+  transform: translateX(100%);
+}
