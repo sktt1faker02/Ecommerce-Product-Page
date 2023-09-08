@@ -38,30 +38,37 @@ const ProductSlider = () => {
   };
 
   return (
-    <section className="product-slider relative flex items-center">
-      {/* <img src={productData[currentImageIndex].img} className={slideEffect} alt="sneaker product" /> */}
-      {productData.map((img, index) => {
-        let position = "nextSlide";
-        if (index === currentImageIndex) {
-          position = "activeSlide";
-        }
+    <section className="product-slider relative">
+      <div className="flex items-center flex-col">
+        {/* <img src={productData[currentImageIndex].img} className={slideEffect} alt="sneaker product" /> */}
+        {productData.map((img, index) => {
+          let position = "nextSlide";
+          if (index === currentImageIndex) {
+            position = "activeSlide";
+          }
 
-        // console.log(index, currentImageIndex, currentImageIndex - 1);
-        // console.log(index === currentImageIndex - 1);
+          // console.log(index, currentImageIndex, currentImageIndex - 1);
+          // console.log(index === currentImageIndex - 1);
 
-        if (index === currentImageIndex - 1 || (currentImageIndex === 0 && index === productData.length - 1)) {
-          position = "lastSlide";
-        }
+          if (index === currentImageIndex - 1 || (currentImageIndex === 0 && index === productData.length - 1)) {
+            position = "lastSlide";
+          }
 
-        return <img src={img.img} className={`${position} absolute top-0 left-0 opacity-0 transition`} alt="sneaker product" key={index} />;
-      })}
-      <div className="slider-button absolute w-full flex justify-between px-4">
-        <button className="prev w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={prevSlideBtn}>
-          <img src={iconPrev} className="mx-auto" alt="previous product" />
-        </button>
-        <button className="next w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={nextSlideBtn}>
-          <img src={iconNext} className="mx-auto" alt="next product" />
-        </button>
+          return (
+            <div key={index} className={`${position} slide-img absolute opacity-0 transition`}>
+              <img src={img.img} alt="sneaker product" />
+            </div>
+          );
+        })}
+
+        <div className="slider-button absolute w-full flex justify-between px-4">
+          <button className="prev w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={prevSlideBtn}>
+            <img src={iconPrev} className="mx-auto" alt="previous product" />
+          </button>
+          <button className="next w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={nextSlideBtn}>
+            <img src={iconNext} className="mx-auto" alt="next product" />
+          </button>
+        </div>
       </div>
     </section>
   );

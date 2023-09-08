@@ -10,15 +10,15 @@ body {
   padding: 1.5rem;
 }
 
-img.activeSlide {
+.slide-img.activeSlide {
   opacity: 1;
   transform: translateX(0);
 }
 
-img.nextSlide {
+.slide-img.nextSlide {
   transform: translateX(-100%);
 }
 
-img.lastSlide {
+/* .slide-img.lastSlide {
   transform: translateX(100%);
-}
+} */
