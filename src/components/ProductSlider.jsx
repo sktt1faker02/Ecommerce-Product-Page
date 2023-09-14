@@ -1,9 +1,16 @@
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+
 import imgProduct1 from "../images/image-product-1.jpg";
 import imgProduct2 from "../images/image-product-2.jpg";
 import imgProduct3 from "../images/image-product-3.jpg";
 import imgProduct4 from "../images/image-product-4.jpg";
-import iconPrev from "../images/icon-previous.svg";
-import iconNext from "../images/icon-next.svg";
+
+import thumbNail1 from "../images/image-product-1-thumbnail.jpg";
+import thumbNail2 from "../images/image-product-2-thumbnail.jpg";
+import thumbNail3 from "../images/image-product-3-thumbnail.jpg";
+import thumbNail4 from "../images/image-product-4-thumbnail.jpg";
+
 import { useState } from "react";
 
 const productData = [
@@ -13,64 +20,66 @@ const productData = [
   { id: 4, img: imgProduct4 },
 ];
 
-const ProductSlider = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const imageThumbnails = [
+  { id: 1, img: thumbNail1 },
+  { id: 2, img: thumbNail2 },
+  { id: 3, img: thumbNail3 },
+  { id: 4, img: thumbNail4 },
+];
 
-  const prevSlideBtn = () => {
-    // setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? productData.length - 1 : prevIndex - 1));
-    // if (currentImageIndex === 0) {
-    //   setCurrentImageIndex(imgData.length - 1);
-    // } else {
-    //   setCurrentImageIndex(currentImageIndex - 1);
-    // }
-    setCurrentImageIndex(currentImageIndex - 1);
+const ProductSlider = ({ handleClickCurrentPreview }) => {
+  const [previewImage, setPreviewImage] = useState(0);
+  // const [thumbIndex, setThumbIndex] = useState(0);
+  // const [zoomIn, setZoomIn] = useState(false);
+
+  const handleThumbnailClick = (index) => {
+    setPreviewImage(index);
+    // setThumbIndex(index);
+    // handleThumbs(index);
   };
 
-  const nextSlideBtn = () => {
-    // setCurrentImageIndex((prevIndex) => (prevIndex === productData.length - 1 ? 0 : prevIndex + 1));
-    // if (currentImageIndex === imgData.length - 1) {
-    //   setCurrentImageIndex(0);
-    // } else {
-    //   setCurrentImageIndex(currentImageIndex + 1);
-    // }
-
-    setCurrentImageIndex(currentImageIndex + 1);
+  const showFullView = () => {
+    handleClickCurrentPreview(previewImage);
   };
 
   return (
-    <section className="product-slider relative">
-      <div className="flex items-center flex-col">
-        {/* <img src={productData[currentImageIndex].img} className={slideEffect} alt="sneaker product" /> */}
-        {productData.map((img, index) => {
-          let position = "nextSlide";
-          if (index === currentImageIndex) {
-            position = "activeSlide";
-          }
-
-          // console.log(index, currentImageIndex, currentImageIndex - 1);
-          // console.log(index === currentImageIndex - 1);
-
-          if (index === currentImageIndex - 1 || (currentImageIndex === 0 && index === productData.length - 1)) {
-            position = "lastSlide";
-          }
-
+    <>
+      <Splide
+        tag="section"
+        className="mb-[24px] mobile-slider"
+        options={{
+          autoplay: true,
+          type: "loop",
+          pagination: false,
+          classes: {
+            prev: "splide__arrow--prev slider-btn-prev",
+            next: "splide__arrow--next slider-btn-next",
+          },
+        }}
+        aria-label="Product Images"
+      >
+        {productData.map((product, index) => {
           return (
-            <div key={index} className={`${position} slide-img absolute opacity-0 transition`}>
-              <img src={img.img} alt="sneaker product" />
-            </div>
+            <SplideSlide key={index}>
+              <img src={product.img} alt="product image" />
+            </SplideSlide>
           );
         })}
+      </Splide>
 
-        <div className="slider-button absolute w-full flex justify-between px-4">
-          <button className="prev w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={prevSlideBtn}>
-            <img src={iconPrev} className="mx-auto" alt="previous product" />
-          </button>
-          <button className="next w-[40px] h-[40px] bg-white rounded-[50%] shadow-sm" onClick={nextSlideBtn}>
-            <img src={iconNext} className="mx-auto" alt="next product" />
-          </button>
+      <section className="desktop-slider px-[1.5rem] lg:px-[0]">
+        <img src={productData[previewImage].img} alt="sneaker preview" width={445} height={445} className={`rounded-[15px] shadow-sm mb-[30px] cursor-pointer`} onClick={showFullView} />
+        <div className="thumbnail-container flex gap-[29px] cursor-pointer">
+          {imageThumbnails.map((thumb, index) => {
+            return (
+              <div key={thumb.id} className={`rounded-[10px] overflow-hidden transition hover:-translate-y-1 ${previewImage === index ? "border-2 border-orange" : ""}`}>
+                <img src={thumb.img} width={88} height={88} className={`${previewImage === index ? "opacity-20" : ""} hover:opacity-50`} alt="sneaker thumbnail" onClick={() => handleThumbnailClick(index)} />
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
