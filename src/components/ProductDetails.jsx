@@ -48,7 +48,7 @@ export const ProductDetails = ({ handleClickAddCart }) => {
           </button>
         </div>
         <button className="btn-add-cart bg-orange font-fw-700 flex justify-center items-center text-white p-[17px] rounded-[10px] shadow-sm gap-4 min-[900px]:w-[237px] transition" onClick={handleAddToCart}>
-          <img className="" src={cartIcon} alt="Add to cart" />
+          <img src={cartIcon} alt="cart details" />
           Add to cart
         </button>
       </div>
