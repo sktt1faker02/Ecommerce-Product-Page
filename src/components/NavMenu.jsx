@@ -53,7 +53,7 @@ const NavMenu = ({ menus, handleShowCart, openCartRef, cartItem }) => {
           </div>
         </div>
       </nav>
-      <div className="nav-line min-[900px]:block h-[1px] bg-light-grayish-blue shadow-sm mb-[91px]"></div>
+      <div className="nav-line min-[900px]:block h-[1px] bg-grayish-blue shadow-sm mb-[91px]"></div>
     </>
   );
 };

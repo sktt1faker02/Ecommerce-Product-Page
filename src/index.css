@@ -203,6 +203,10 @@ body {
     margin-left: 50px;
     margin-right: 50px;
   }
+
+  .nav-links ul li a::after {
+    bottom: -4.2rem;
+  }
   main {
     max-width: 1115px;
     margin: 0 auto;
